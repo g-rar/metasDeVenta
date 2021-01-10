@@ -1,4 +1,5 @@
 export interface SalesGoal {
+    id?:string,
     year:number,
     month:number,
     salesMan:number,

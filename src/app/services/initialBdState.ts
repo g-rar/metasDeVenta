@@ -84,5 +84,54 @@ export var testState: SalesGoal[] = [
         salesMan: 56,
         brand: 12,
         amount: 94857
+    },
+    {
+        year: 2020,
+        month: 1,
+        salesMan: 31,
+        brand: 1,
+        amount: 101429
+    }, 
+    {
+        year: 2020,
+        month: 2,
+        salesMan: 31,
+        brand: 2,
+        amount: 108000
+    }, 
+    {
+        year: 2020,
+        month: 3,
+        salesMan: 31,
+        brand: 11,
+        amount: 114571
+    }, 
+    {
+        year: 2020,
+        month: 4,
+        salesMan: 31,
+        brand: 4,
+        amount: 121143
+    },
+    {
+        year: 2020,
+        month: 5,
+        salesMan: 31,
+        brand: 60,
+        amount: 127714
+    },
+    {
+        year: 2020,
+        month: 6,
+        salesMan: 31,
+        brand: 6,
+        amount: 134286
+    },
+    {
+        year: 2020,
+        month: 7,
+        salesMan: 31,
+        brand: 1,
+        amount: 140857
     }
 ]

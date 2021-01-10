@@ -1,35 +1,69 @@
 <h3>
     Estas son las metas de venta existentes
 </h3>
-<table class="table table-striped table-hover">
-    <thead class="table-dark">
-      <tr>
-        <th scope="col">Año</th>
-        <th scope="col">Mes</th>
-        <th scope="col">Vendedor</th>
-        <th scope="col">Marca</th>
-        <th scope="col">Monto</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr  *ngFor="let goal of retrievedGoals ">
-        <td>{{goal.year}}</td>
-        <td>{{goal.month}}</td>
-        <td>{{goal.salesMan}}</td>
-        <td>{{goal.brand}}</td>
-        <td>{{goal.amount}}</td>
-        <td style="width: 10rem;">
-          <div class="btn-group" role="group">
-            <button class="btn btn-sm btn-primary">Editar</button> 
-            <button class="btn btn-sm btn-danger">Borrar</button>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="btn-group" role="group">
-    <button class="btn btn-danger" (click)="deleteEverything()">Eliminar datos</button>
-    <button class="btn btn-primary" (click)="setTestState()">Estado de prueba</button>
-
-  </div>
+<table class="table table-striped table-hover table-responsive">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">Año</th>
+      <th scope="col">Mes</th>
+      <th scope="col">Vendedor</th>
+      <th scope="col">Marca</th>
+      <th scope="col">Monto</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody class="table-sm">
+    <ng-container *ngFor="let goal of retrievedGoals; let i = index" 
+      [ngTemplateOutlet]="i != editingGoal ? displayRow : editRow" 
+      [ngTemplateOutletContext]="{goal:goal, i:i}">
+    </ng-container>
+  </tbody>
+  <tfoot *ngIf="addingGoal">
+    <td><input class="form-control p-0" type="number" placeholder="Año" [(ngModel)]="addingGoalFields.year"></td>
+    <td><input class="form-control p-0" type="number" placeholder="Mes" [(ngModel)]="addingGoalFields.month"></td>
+    <td><input class="form-control p-0" type="number" placeholder="Vendedor" [(ngModel)]="addingGoalFields.salesMan"></td>
+    <td><input class="form-control p-0" type="number" placeholder="Marca" [(ngModel)]="addingGoalFields.brand"></td>
+    <td><input class="form-control p-0" type="number" placeholder="Monto" [(ngModel)]="addingGoalFields.amount"></td>
+    <td style="width: 10rem;">
+      <div class="btn-group" role="group">
+        <button class="btn btn-sm btn-danger" (click)="cancelAddGoal()">Canc.</button> 
+        <button class="btn btn-sm btn-success" (click)="confirmAddGoal()">Agreg.</button>
+      </div>
+    </td>
+  </tfoot>
+</table>
+<ng-template #displayRow let-goal='goal' let-i='i'>
+  <tr>
+    <td>{{goal.year}}</td>
+    <td>{{goal.month}}</td>
+    <td>{{goal.salesMan}}</td>
+    <td>{{goal.brand}}</td>
+    <td>{{goal.amount}}</td>
+    <td style="width: 10rem;">
+      <div class="btn-group" role="group">
+        <button class="btn btn-sm btn-primary" (click)="editGoal(goal.id, i)">Editar</button> 
+        <button class="btn btn-sm btn-danger" (click)="deleteGoal(goal.id)">Borrar</button>
+      </div>
+    </td>
+  </tr>
+</ng-template>
+<ng-template #editRow let-goal='goal'>
+  <tr class="table-warning">
+    <td><input class="form-control p-0" type="number" placeholder="Año" [(ngModel)]="editingGoalFields.year"></td>
+    <td><input class="form-control p-0" type="number" placeholder="Mes" [(ngModel)]="editingGoalFields.month"></td>
+    <td><input class="form-control p-0" type="number" placeholder="Vendedor" [(ngModel)]="editingGoalFields.salesMan"></td>
+    <td><input class="form-control p-0" type="number" placeholder="Marca" [(ngModel)]="editingGoalFields.brand"></td>
+    <td><input class="form-control p-0" type="number" placeholder="Monto" [(ngModel)]="editingGoalFields.amount"></td>
+    <td style="width: 10rem;">
+      <div class="btn-group" role="group">
+        <button class="btn btn-sm btn-danger" (click)="cancelEdit()">Canc.</button> 
+        <button class="btn btn-sm btn-success" (click)="confirmEdit()">Conf.</button>
+      </div>
+    </td>
+  </tr>
+</ng-template>
+<div class="btn-group" role="group">
+  <button class="btn btn-danger" (click)="deleteEverything()">Eliminar datos</button>
+  <button class="btn btn-primary" (click)="setTestState()">Estado de prueba</button>
+  <button class="btn btn-success" (click)="addGoal()">Crear Meta</button>
+</div>

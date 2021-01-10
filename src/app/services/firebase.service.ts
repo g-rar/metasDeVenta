@@ -11,7 +11,7 @@ export class FirebaseService {
 
   saleGoals:string = "saleGoals"
 
-  constructor(private bd:AngularFirestore) { }
+  constructor(public bd:AngularFirestore) { }
 
   async resetDB(){
     let res = await this.bd.collection(this.saleGoals).get().toPromise()
@@ -24,7 +24,8 @@ export class FirebaseService {
 
   async setTestState(){
     for (const goal of testState) {
-      this.bd.collection(this.saleGoals).add(goal)
+      goal.id = this.bd.createId();
+      this.bd.collection(this.saleGoals).doc(goal.id).set(goal)
     }
   }
 
@@ -39,7 +40,8 @@ export class FirebaseService {
 
   getGoalsSubscription():Observable<SalesGoal[]>{
     return new Observable(sus => {
-      this.bd.collection(this.saleGoals).snapshotChanges().subscribe(res => {
+      
+      this.bd.collection(this.saleGoals, q => q.orderBy("salesMan","desc").orderBy("month")).snapshotChanges().subscribe(res => {
         let retVal = []
         res.forEach(doc => {
           retVal.push(doc.payload.doc.data() as SalesGoal)
@@ -47,6 +49,11 @@ export class FirebaseService {
         sus.next(retVal)
       })
     })
+  }
+
+  addGoal(goal:SalesGoal){
+    goal.id = this.bd.createId();
+    this.bd.collection(this.saleGoals).doc(goal.id).set(goal)
   }
 
 }

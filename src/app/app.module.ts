@@ -7,21 +7,19 @@ import { MainComponent } from './main/main.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { FormsModule } from '@angular/forms'
 import { environment } from 'src/environments/environment';
-import { CreateGoalComponent } from './create-goal/create-goal.component';
-import { EditGoalComponent } from './edit-goal/edit-goal.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
-    CreateGoalComponent,
-    EditGoalComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     NgbModule
