@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FirebaseService } from '../services/firebase.service'
+import { SalesGoal } from '../model/metaDeVenta'
 
 @Component({
   selector: 'app-main',
@@ -7,9 +9,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
-  constructor() { }
+  retrievedGoals:SalesGoal[] = []
+
+  constructor(private fire:FirebaseService) { }
 
   ngOnInit(): void {
+    this.fire.getGoalsSubscription().subscribe(res => {
+      this.retrievedGoals = res;
+    })
+    // this.fire.getGoals().then(res => {
+    //   this.retrievedGoals = res
+    // })
+  }
+
+  async setTestState(){
+    await this.fire.resetDB()
+    await this.fire.setTestState()
+  }
+
+  async deleteEverything() {
+    await this.fire.resetDB()
   }
 
 }

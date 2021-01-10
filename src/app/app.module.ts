@@ -8,12 +8,16 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
+import { CreateGoalComponent } from './create-goal/create-goal.component';
+import { EditGoalComponent } from './edit-goal/edit-goal.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainComponent
+    MainComponent,
+    CreateGoalComponent,
+    EditGoalComponent
   ],
   imports: [
     BrowserModule,

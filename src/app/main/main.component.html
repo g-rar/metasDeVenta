@@ -1,1 +1,35 @@
-<p>main works!</p>
+<h3>
+    Estas son las metas de venta existentes
+</h3>
+<table class="table table-striped table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">Año</th>
+        <th scope="col">Mes</th>
+        <th scope="col">Vendedor</th>
+        <th scope="col">Marca</th>
+        <th scope="col">Monto</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr  *ngFor="let goal of retrievedGoals ">
+        <td>{{goal.year}}</td>
+        <td>{{goal.month}}</td>
+        <td>{{goal.salesMan}}</td>
+        <td>{{goal.brand}}</td>
+        <td>{{goal.amount}}</td>
+        <td style="width: 10rem;">
+          <div class="btn-group" role="group">
+            <button class="btn btn-sm btn-primary">Editar</button> 
+            <button class="btn btn-sm btn-danger">Borrar</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="btn-group" role="group">
+    <button class="btn btn-danger" (click)="deleteEverything()">Eliminar datos</button>
+    <button class="btn btn-primary" (click)="setTestState()">Estado de prueba</button>
+
+  </div>
